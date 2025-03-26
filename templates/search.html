@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}搜索结果{% endblock %}
+
+{% block content %}
+<form class="mb-4" action="/search" method="get">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="搜索影视..." name="query" required>
+        <button class="btn btn-primary" type="submit">搜索</button>
+    </div>
+</form>
+<h1 class="mb-4">搜索结果</h1>
+
+{% if results %}
+<div class="row row-cols-2 row-cols-md-4 row-cols-lg-5 g-4">
+    {% for item in results.items %}
+    <div class="col">
+        <div class="card h-100">
+            {% if item.poster %}
+            <img src="{{ item.poster }}" class="card-img-top" alt="{{ item.title }}">
+            {% else %}
+            <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 300px;">
+                <span>暂无海报</span>
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title text-truncate">
+                    {% if item.media_type == "movie" %}
+                    <a href="/movie/{{ item.tmdbid }}" class="text-decoration-none text-dark">{{ item.title }}</a>
+                    {% elif item.media_type == "tv" %}
+                    <a href="/tv/{{ item.tmdbid }}" class="text-decoration-none text-dark">{{ item.title }}</a>
+                    {% else %}
+                    {{ item.title }}
+                    {% endif %}
+                </h5>
+                <p class="card-text small text-muted">
+                    {% if item.release_date %}
+                    <span>{{ item.release_date[:4] }}</span>
+                    {% endif %}
+                    {% if item.vote_average %}
+                    <span class="ms-2">⭐ {{ "%.1f"|format(item.vote_average) }}</span>
+                    {% endif %}
+                </p>
+                <p class="card-text small" style="height: 4.5em; overflow: hidden;">{{ item.overview }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if results.total_pages > 1 %}
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if current_page > 1 %}
+        <li class="page-item">
+            <a class="page-link" href="/search?query={{ query }}&page={{ current_page - 1 }}">&laquo; 上一页</a>
+        </li>
+        {% endif %}
+        
+        {% for page in range(1, results.total_pages + 1) %}
+        <li class="page-item {% if page == current_page %}active{% endif %}">
+            <a class="page-link" href="/search?query={{ query }}&page={{ page }}">{{ page }}</a>
+        </li>
+        {% endfor %}
+        
+        {% if current_page < results.total_pages %}
+        <li class="page-item">
+            <a class="page-link" href="/search?query={{ query }}&page={{ current_page + 1 }}">下一页 &raquo;</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+{% elif query %}
+<div class="alert alert-info" role="alert">
+    未找到相关结果
+</div>
+{% endif %}
+{% endblock %}

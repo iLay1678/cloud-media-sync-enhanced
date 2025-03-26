@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}{{ tv.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        {% if tv.poster %}
+        <img src="{{ tv.poster }}" class="img-fluid rounded" alt="{{ tv.title }}">
+        {% else %}
+        <div class="bg-secondary text-white d-flex align-items-center justify-content-center rounded" style="height: 450px;">
+            <span>暂无海报</span>
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-md-8">
+        <h1 class="mb-3">{{ tv.title }}</h1>
+        
+        <div class="mb-3">
+            {% if tv.vote %}
+            <span class="badge bg-warning text-dark me-2">⭐ {{ "%.1f"|format(tv.vote) }}</span>
+            {% endif %}
+            {% if tv.release_date %}
+            <span class="badge bg-info text-dark me-2">{{ tv.release_date }}</span>
+            {% endif %}
+            {% if tv.number_of_seasons %}
+            <span class="badge bg-secondary">共{{ tv.number_of_seasons }}季</span>
+            {% endif %}
+        </div>
+
+        <p class="lead mb-4">{{ tv.overview }}</p>
+
+        <div class="mb-4">
+            <h4 class="mb-3">资源下载</h4>
+            {% if tv.has_115 or tv.has_magnet or tv.has_ed2k %}
+            <div class="list-group">
+                {% if tv.has_115 %}
+                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    网盘资源
+                    <span class="badge bg-primary rounded-pill">115</span>
+                </a>
+                {% endif %}
+                {% if tv.has_magnet %}
+                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    磁力链接
+                    <span class="badge bg-success rounded-pill">Magnet</span>
+                </a>
+                {% endif %}
+                {% if tv.has_ed2k %}
+                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    电驴链接
+                    <span class="badge bg-info rounded-pill">ED2K</span>
+                </a>
+                {% endif %}
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                暂无可用资源
+            </div>
+            {% endif %}
+        </div>
+
+        {% if tv.has_video %}
+        <div class="mb-4">
+            <h4 class="mb-3">在线播放</h4>
+            <button class="btn btn-primary" onclick="alert('功能开发中...')">立即观看</button>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
