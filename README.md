@@ -1,12 +1,22 @@
-# ilay-media
+# Docker 部署指南
 
-一个基于FastAPI和Jinja2构建的影视资源搜索和展示平台。
+## 使用 Docker Compose
 
-## 功能特性
+1. 创建`docker-compose.yaml`文件：
 
-- 热门影视列表展示
-- 影视资源搜索
-- 电影详情页面
-- 电视剧详情页面
-- 响应式网页设计
-
+```yaml
+services:
+  ilay-media:
+    build: .
+    environment:
+      # Nullbr配置
+      NULLBR_APP_ID: your_app_id_here
+      NULLBR_API_KEY: your_api_key_here
+      NULLBR_BASE_URL: https://api.nullbr.online
+      # Telegram配置
+      TG_BOT_TOKEN: 1608962238:5o45983
+      TG_CHAT_ID: "123456789"
+      # CMS配置
+      CMS_BASE_URL: https://localhost
+      CMS_TOKEN: your_cms_token_here
+```

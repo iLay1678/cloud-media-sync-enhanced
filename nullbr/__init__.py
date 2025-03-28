@@ -1,4 +1,4 @@
-import requests
+import httpx
 from .models.base import MediaItem
 from .models.search import SearchResponse, ListResponse
 from .models.movie import Movie115Item, MovieResponse, Movie115Response, MovieMagnetItem, MovieMagnetResponse, MovieEd2kItem, MovieEd2kResponse
@@ -10,7 +10,7 @@ class NullbrSDK:
         self.app_id = app_id
         self.api_key = api_key
         self.base_url = base_url.rstrip("/")
-        self.session = requests.Session()
+        self.session = httpx.Client()
         self.session.headers.update({"X-APP-ID": app_id})
         if api_key:
             self.session.headers.update({"X-API-KEY": api_key})
@@ -28,7 +28,7 @@ class NullbrSDK:
             响应的JSON数据
 
         Raises:
-            requests.exceptions.HTTPError: 当API返回非200状态码时
+            httpx.HTTPError: 当API返回非200状态码时
         """
         import logging
         logger = logging.getLogger(__name__)
@@ -38,7 +38,7 @@ class NullbrSDK:
             logger.debug(f"Request params: {params}")
 
         response = self.session.request(method, url, params=params)
-        if not response.ok:
+        if not response.is_success:
             logger.error(f"API returned {response.status_code}")
             logger.error(f"Response data: {response.json()}")
             response.raise_for_status()
@@ -66,7 +66,7 @@ class NullbrSDK:
             MediaItem(
                 media_type=item["media_type"],
                 tmdbid=item["tmdbid"],
-                poster=item["poster"],
+                poster="https://image.tmdb.org/t/p/w154/" + item["poster"] ,
                 title=item["title"],
                 overview=item["overview"],
                 vote_average=item.get("vote_average"),
@@ -102,7 +102,7 @@ class NullbrSDK:
             MediaItem(
                 media_type=item["media_type"],
                 tmdbid=item["tmdbid"],
-                poster=item["poster"],
+                poster="https://image.tmdb.org/t/p/w154/" + item["poster"] ,
                 title=item["title"],
                 overview=item["overview"],
                 vote_average=item.get("vote_average"),
@@ -137,7 +137,7 @@ class NullbrSDK:
         
         return MovieResponse(
             id=data["id"],
-            poster=data["poster"],
+            poster="https://image.tmdb.org/t/p/w154/" + data["poster"] ,
             title=data["title"],
             overview=data["overview"],
             vote=data["vote"],
@@ -270,7 +270,7 @@ class NullbrSDK:
             MediaItem(
                 media_type=item["media_type"],
                 tmdbid=item["tmdbid"],
-                poster=item["poster"],
+                poster="https://image.tmdb.org/t/p/w154/" + item["poster"] ,
                 title=item["title"],
                 overview=item["overview"],
                 vote_average=item.get("vote_average"),
@@ -281,7 +281,7 @@ class NullbrSDK:
         
         return CollectionResponse(
             id=data["id"],
-            poster=data["poster"],
+            poster="https://image.tmdb.org/t/p/w154/" + data["poster"] ,
             title=data["title"],
             overview=data["overview"],
             vote=data["vote"],
@@ -306,7 +306,7 @@ class NullbrSDK:
         
         return TVResponse(
             id=data["id"],
-            poster=data["poster"],
+            poster="https://image.tmdb.org/t/p/w154/" + data["poster"] ,
             title=data["title"],
             overview=data["overview"],
             vote=data["vote"],

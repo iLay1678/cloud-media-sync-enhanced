@@ -1,16 +1,11 @@
 [project]
 name = "ilay-media"
 version = "0.1.0"
-description = "一个基于FastAPI和Jinja2构建的影视资源搜索和展示平台"
+description = "一个基于资源搜索机器人"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "fastapi>=0.115.12",
-    "uvicorn>=0.34.0",
-    "jinja2>=3.1.6",
-    "python-multipart>=0.0.20",
-    "requests>=2.32.3",
-    "aiofiles>=24.1.0",
+    "httpx[http2]>=0.28.1",
     "python-dotenv>=1.1.0",
-    "itsdangerous>=2.2.0"
+    "python-telegram-bot>=22.0",
 ]
