@@ -69,11 +69,7 @@ async def get_user_id(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
     await update.message.reply_markdown_v2(f'您的Telegram ID是：`{user_id}`')
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """处理/start命令"""
-    if not is_user_allowed(update.effective_user.id):
-        await update.message.reply_markdown_v2('抱歉，您没有权限使用此机器人。')
-        return
-    
+    """处理/start命令"""    
     await update.message.reply_markdown_v2(
         '欢迎使用媒体搜索机器人！\n'
         '直接发送要搜索的电影/电视剧名称即可。'
@@ -81,9 +77,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """处理搜索请求"""
-    if not is_user_allowed(update.effective_user.id):
-        await update.message.reply_markdown_v2('抱歉，您没有权限使用此机器人。')
-        return
     
     # 发送加载消息
     loading_message = await update.message.reply_markdown_v2(escape_markdown('🔍 正在搜索，请稍候...',version=2))
@@ -133,10 +126,6 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     """处理按钮回调"""
     query = update.callback_query
     await query.answer()
-    
-    if not is_user_allowed(update.effective_user.id):
-        await query.edit_message_reply_markup(None)
-        return
     
     try:
         # 解析回调数据
@@ -216,7 +205,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
                 message += f"📁 \#{i+1} {escape_markdown(item.title, version=2)}\n"
                 message += f"💾 大小：{escape_markdown(item.size, version=2)}\n"
                 message += f"🔗 链接：`{escape_markdown(item.share_link, version=2)}`\n\n"
-                if cms_client:
+                if cms_client and is_user_allowed(update.effective_user.id):
                     keyboard.append([InlineKeyboardButton(
                         f"📥 转存 #{i+1}",
                         callback_data=f"cms_{item.share_link}"
@@ -240,7 +229,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
                     message += f"⚡️ 质量：{escape_markdown(str(item.quality) or '未知', version=2)}\n"
                     message += f"🈶 中字：{'是' if item.zh_sub else '否'}\n"
                     message += f"🔗 链接：`{escape_markdown(item.magnet, version=2)}`\n\n"
-                    if cms_client:
+                    if cms_client and is_user_allowed(update.effective_user.id):
                         keyboard.append([InlineKeyboardButton(
                             f"📥 转存 #{i+1}",
                             callback_data=f"cms_{item.magnet}"
@@ -293,9 +282,6 @@ async def season_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     query = update.callback_query
     await query.answer()
     
-    if not is_user_allowed(update.effective_user.id):
-        await query.edit_message_reply_markup(None)
-        return
     
     try:
         # 解析回调数据
@@ -327,7 +313,7 @@ async def season_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             message += f"⚡️ 质量：{escape_markdown(item.quality or '未知', version=2)}\n"
             message += f"🈶 中字：{'是' if item.zh_sub else '否'}\n"  # 布尔值不需要转义
             message += f"🔗 链接：`{escape_markdown(item.magnet, version=2)}`\n\n"
-            if cms_client:
+            if cms_client and is_user_allowed(update.effective_user.id):
                 keyboard.append([InlineKeyboardButton(
                     f"📥 转存 #{i+1}",
                     callback_data=f"cms_{item.magnet}"
@@ -376,9 +362,6 @@ async def cms_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     query = update.callback_query
     await query.answer()
     
-    if not is_user_allowed(update.effective_user.id):
-        await query.edit_message_reply_markup(None)
-        return
     
     try:
         # 解析回调数据获取分享链接

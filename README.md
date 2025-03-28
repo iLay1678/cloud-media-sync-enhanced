@@ -1,13 +1,22 @@
-# Docker 部署指南
+[![Build and Push Docker Image](https://github.com/iLay1678/nullbr_cms_bot/actions/workflows/docker-build.yml/badge.svg)](https://github.com/iLay1678/nullbr_cms_bot/actions/workflows/docker-build.yml)
+# nullbr资源搜索机器人
 
+## 简介
+
+nullbr资源搜索机器人是一个基于Telegram的机器人，用于搜索nullbr资源。
+
+## 功能
+
+- 搜索nullbr资源
+- 通过CMS转存资源
 ## 使用 Docker Compose
 
 1. 创建`docker-compose.yaml`文件：
 
 ```yaml
 services:
-  ilay-media:
-    build: .
+  nullbr_cms_bot:
+    image: ghcr.io/ilay1678/nullbr_cms_bot:latest
     environment:
       # Nullbr配置
       NULLBR_APP_ID: your_app_id_here
