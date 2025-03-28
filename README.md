@@ -8,7 +8,7 @@ nullbr资源搜索机器人是一个基于Telegram的机器人，用于搜索nul
 ## 功能
 
 - 搜索nullbr资源
-- 通过CMS转存资源
+- 通过CMS转存资源(只有配置了CMS相关环境变量和指定TG用户才显示转存按钮)
 ## 使用 Docker Compose
 
 1. 创建`docker-compose.yaml`文件：
