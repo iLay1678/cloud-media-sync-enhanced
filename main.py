@@ -202,7 +202,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             # 格式化115资源信息
             message = "🔍 115资源链接：\n\n"
             for i, item in enumerate(resources.items):
-                message += f"📁 \#{i+1} {escape_markdown(item.title, version=2)}\n"
+                message += escape_markdown(f"📁 #{i+1} {item.title}\n", version=2)
                 message += f"💾 大小：{escape_markdown(item.size, version=2)}\n"
                 message += f"🔗 链接：`{escape_markdown(item.share_link, version=2)}`\n\n"
                 if cms_client and is_user_allowed(update.effective_user.id):
@@ -222,7 +222,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
                 # 格式化磁力链接信息
                 message = "🧲 磁力链接：\n\n"
                 for i, item in enumerate(resources.magnet):
-                    message += f"📁 \#{i+1} {escape_markdown(item.name, version=2)}\n"
+                    message += escape_markdown(f"📁 #{i+1} {item.name}\n", version=2)
                     message += f"💾 大小：{escape_markdown(item.size, version=2)}\n"
                     message += f"🎬 分辨率：{escape_markdown(item.resolution or '未知', version=2)}\n"
                     message += f"📺 来源：{escape_markdown(item.source or '未知', version=2)}\n"
@@ -306,7 +306,7 @@ async def season_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         message = f"🧲 第 {season} 季磁力链接：\n\n"
         keyboard = []
         for i, item in enumerate(resources.magnet):
-            message += f"📁 \#{i+1} {escape_markdown(item.name, version=2)}\n"
+            message += escape_markdown(f"📁 #{i+1} {item.name}\n", version=2)
             message += f"💾 大小：{escape_markdown(item.size, version=2)}\n"
             message += f"🎬 分辨率：{escape_markdown(item.resolution or '未知', version=2)}\n"
             message += f"📺 来源：{escape_markdown(item.source or '未知', version=2)}\n"
