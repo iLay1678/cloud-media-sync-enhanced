@@ -284,7 +284,7 @@ class NullbrSDK:
             poster="https://image.tmdb.org/t/p/w154/" + data["poster"] ,
             title=data["title"],
             overview=data["overview"],
-            vote=data["vote"],
+            vote=data["vote"] if data.get("vote") else None,
             release_date=data["release_date"],
             has_115=bool(data["115-flg"]),
             items=items
