@@ -29,5 +29,6 @@ services:
       TG_CHAT_ID: "123456789"
       # CMS配置
       CMS_BASE_URL: https://localhost
-      CMS_TOKEN: your_cms_token_here
+      CMS_USERNAME: your_username_here
+      CMS_PASSWORD: your_password_here
 ```

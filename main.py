@@ -8,7 +8,7 @@ from nullbr import NullbrSDK
 from telegram.helpers import escape_markdown
 import json
 # 加载环境变量
-load_dotenv()
+load_dotenv(override=True)
 
 # 配置日志
 from logging.handlers import TimedRotatingFileHandler
