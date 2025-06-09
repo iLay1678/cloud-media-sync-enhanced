@@ -1,19 +1,18 @@
 import os
 import logging
 from typing import List
-from dotenv import load_dotenv
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, filters, ContextTypes
 from nullbr import NullbrSDK
 from telegram.helpers import escape_markdown
 import json
-# 加载环境变量
-load_dotenv()
+
 
 # 配置日志
 from logging.handlers import TimedRotatingFileHandler
 import os
-
+from dotenv import load_dotenv
+load_dotenv()
 # 确保logs目录存在
 log_dir = 'logs'
 if not os.path.exists(log_dir):
@@ -49,12 +48,11 @@ NULLBR_APP_ID = os.getenv('NULLBR_APP_ID')
 NULLBR_API_KEY = os.getenv('NULLBR_API_KEY')
 NULLBR_BASE_URL = os.getenv('NULLBR_BASE_URL')
 ALLOWED_USER_IDS = [int(id.strip()) for id in os.getenv('TG_CHAT_ID', '').split(',') if id.strip()]
-CMS_TOKEN = os.getenv('CMS_TOKEN')
 CMS_BASE_URL = os.getenv('CMS_BASE_URL')
 
 # 初始化CMS客户端
 from cms import CMSClient
-cms_client = CMSClient(base_url=CMS_BASE_URL, token=CMS_TOKEN) if CMS_TOKEN else None
+cms_client = CMSClient(base_url=CMS_BASE_URL) if CMS_BASE_URL else None
 
 # 初始化NullbrSDK
 nullbr_client = NullbrSDK(app_id=NULLBR_APP_ID, api_key=NULLBR_API_KEY, base_url=NULLBR_BASE_URL)

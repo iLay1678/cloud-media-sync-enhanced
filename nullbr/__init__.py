@@ -64,22 +64,22 @@ class NullbrSDK:
         
         items = [
             MediaItem(
-                media_type=item["media_type"],
-                tmdbid=item["tmdbid"],
-                poster="https://image.tmdb.org/t/p/w154/" + item["poster"] ,
-                title=item["title"],
-                overview=item["overview"],
+                media_type=item.get("media_type"),
+                tmdbid=item.get("tmdbid"),
+                poster="https://image.tmdb.org/t/p/w154/" + item.get("poster", "") ,
+                title=item.get("title"),
+                overview=item.get("overview"),
                 vote_average=item.get("vote_average"),
                 release_date=item.get("release_date"),
                 rank=item.get("rank")
             )
-            for item in data["items"]
+            for item in data.get("items", [])
         ]
         
         return SearchResponse(
-            page=data["page"],
-            total_pages=data["total_pages"],
-            total_results=data["total_results"],
+            page=data.get("page"),
+            total_pages=data.get("total_pages"),
+            total_results=data.get("total_results"),
             items=items
         )
     
@@ -100,24 +100,24 @@ class NullbrSDK:
         
         items = [
             MediaItem(
-                media_type=item["media_type"],
-                tmdbid=item["tmdbid"],
-                poster="https://image.tmdb.org/t/p/w154/" + item["poster"] ,
-                title=item["title"],
-                overview=item["overview"],
+                media_type=item.get("media_type"),
+                tmdbid=item.get("tmdbid"),
+                poster="https://image.tmdb.org/t/p/w154/" + item.get("poster", "") ,
+                title=item.get("title"),
+                overview=item.get("overview"),
                 vote_average=item.get("vote_average"),
                 release_date=item.get("release_date")
             )
-            for item in data["items"]
+            for item in data.get("items", [])
         ]
         
         return ListResponse(
-            id=data["id"],
-            name=data["name"],
-            description=data["description"],
-            updated_dt=data["updated_dt"],
-            page=data["page"],
-            total_page=data["total_page"],
+            id=data.get("id"),
+            name=data.get("name"),
+            description=data.get("description"),
+            updated_dt=data.get("updated_dt"),
+            page=data.get("page"),
+            total_page=data.get("total_page"),
             items=items
         )
 
@@ -136,16 +136,16 @@ class NullbrSDK:
         data = self._request("GET", f"{self.base_url}/movie/{tmdbid}")
         
         return MovieResponse(
-            id=data["id"],
-            poster="https://image.tmdb.org/t/p/w154/" + data["poster"] ,
-            title=data["title"],
-            overview=data["overview"],
-            vote=data["vote"],
-            release_date=data["release_date"],
-            has_115=bool(data["115-flg"]),
-            has_magnet=bool(data["magnet-flg"]),
-            has_ed2k=bool(data["ed2k-flg"]),
-            has_video=bool(data["video-flg"])
+            id=data.get("id"),
+            poster="https://image.tmdb.org/t/p/w154/" + data.get("poster", "") ,
+            title=data.get("title"),
+            overview=data.get("overview"),
+            vote=data.get("vote"),
+            release_date=data.get("release_date"),
+            has_115=bool(data.get("115-flg")),
+            has_magnet=bool(data.get("magnet-flg")),
+            has_ed2k=bool(data.get("ed2k-flg")),
+            has_video=bool(data.get("video-flg"))
         )
 
     def get_movie_115(self, tmdbid: int, page: int = 1) -> Movie115Response:
@@ -169,18 +169,18 @@ class NullbrSDK:
         
         items = [
             Movie115Item(
-                title=item["title"],
-                size=item["size"],
-                share_link=item["share_link"]
+                title=item.get("title"),
+                size=item.get("size"),
+                share_link=item.get("share_link")
             )
-            for item in data["115"]
+            for item in data.get("115", [])
         ]
         
         return Movie115Response(
-            id=data["id"],
-            media_type=data["media_type"],
-            page=data["page"],
-            total_page=data["total_page"],
+            id=data.get("id"),
+            media_type=data.get("media_type"),
+            page=data.get("page"),
+            total_page=data.get("total_page"),
             items=items
         )
 
@@ -201,20 +201,20 @@ class NullbrSDK:
         
         items = [
             MovieMagnetItem(
-                name=item["name"],
-                size=item["size"],
-                magnet=item["magnet"],
-                resolution=item["resolution"],
-                source=item["source"],
-                quality=item["quality"],
-                zh_sub=item["zh_sub"]
+                name=item.get("name"),
+                size=item.get("size"),
+                magnet=item.get("magnet"),
+                resolution=item.get("resolution"),
+                source=item.get("source"),
+                quality=item.get("quality"),
+                zh_sub=item.get("zh_sub")
             )
-            for item in data["magnet"]
+            for item in data.get("magnet", [])
         ]
         
         return MovieMagnetResponse(
-            id=data["id"],
-            media_type=data["media_type"],
+            id=data.get("id"),
+            media_type=data.get("media_type"),
             magnet=items
         )
 
@@ -235,20 +235,20 @@ class NullbrSDK:
         
         items = [
             MovieEd2kItem(
-                name=item["name"],
-                size=item["size"],
-                ed2k=item["ed2k"],
-                resolution=item["resolution"],
-                source=item["source"],
-                quality=item["quality"],
-                zh_sub=item["zh_sub"]
+                name=item.get("name"),
+                size=item.get("size"),
+                ed2k=item.get("ed2k"),
+                resolution=item.get("resolution"),
+                source=item.get("source"),
+                quality=item.get("quality"),
+                zh_sub=item.get("zh_sub")
             )
-            for item in data["ed2k"]
+            for item in data.get("ed2k", [])
         ]
         
         return MovieEd2kResponse(
-            id=data["id"],
-            media_type=data["media_type"],
+            id=data.get("id"),
+            media_type=data.get("media_type"),
             ed2k=items
         )
 
@@ -268,25 +268,25 @@ class NullbrSDK:
         
         items = [
             MediaItem(
-                media_type=item["media_type"],
-                tmdbid=item["tmdbid"],
-                poster="https://image.tmdb.org/t/p/w154/" + item["poster"] ,
-                title=item["title"],
-                overview=item["overview"],
+                media_type=item.get("media_type"),
+                tmdbid=item.get("tmdbid"),
+                poster="https://image.tmdb.org/t/p/w154/" + item.get("poster", "") ,
+                title=item.get("title"),
+                overview=item.get("overview"),
                 vote_average=item.get("vote_average"),
                 release_date=item.get("release_date")
             )
-            for item in data["items"]
+            for item in data.get("items", [])
         ]
         
         return CollectionResponse(
-            id=data["id"],
-            poster="https://image.tmdb.org/t/p/w154/" + data["poster"] ,
-            title=data["title"],
-            overview=data["overview"],
-            vote=data["vote"] if data.get("vote") else None,
-            release_date=data["release_date"],
-            has_115=bool(data["115-flg"]),
+            id=data.get("id"),
+            poster="https://image.tmdb.org/t/p/w154/" + data.get("poster", "") ,
+            title=data.get("title"),
+            overview=data.get("overview"),
+            vote=data.get("vote"),
+            release_date=data.get("release_date"),
+            has_115=bool(data.get("115-flg","false")),
             items=items
         )
 
@@ -305,17 +305,17 @@ class NullbrSDK:
         data = self._request("GET", f"{self.base_url}/tv/{tmdbid}")
         
         return TVResponse(
-            id=data["id"],
-            poster="https://image.tmdb.org/t/p/w154/" + data["poster"] ,
-            title=data["title"],
-            overview=data["overview"],
-            vote=data["vote"],
-            release_date=data["release_date"],
-            number_of_seasons=data["number_of_seasons"],
-            has_115=bool(data["115-flg"]),
-            has_magnet=bool(data["magnet-flg"]),
-            has_ed2k=bool(data["ed2k-flg"]),
-            has_video=bool(data["video-flg"])
+            id=data.get("id"),
+            poster="https://image.tmdb.org/t/p/w154/" + data.get("poster", "") ,
+            title=data.get("title"),
+            overview=data.get("overview"),
+            vote=data.get("vote"),
+            release_date=data.get("release_date"),
+            number_of_seasons=data.get("number_of_seasons"),
+            has_115=bool(data.get("115-flg")),
+            has_magnet=bool(data.get("magnet-flg")),
+            has_ed2k=bool(data.get("ed2k-flg")),
+            has_video=bool(data.get("video-flg"))
         )
 
     def get_tv_115(self, tmdbid: int, page: int = 1) -> TV115Response:
@@ -339,18 +339,18 @@ class NullbrSDK:
         
         items = [
             Movie115Item(
-                title=item["title"],
-                size=item["size"],
-                share_link=item["share_link"]
+                title=item.get("title"),
+                size=item.get("size"),
+                share_link=item.get("share_link")
             )
-            for item in data["115"]
+            for item in data.get("115", [])
         ]
         
         return TV115Response(
-            id=data["id"],
-            media_type=data["media_type"],
-            page=data["page"],
-            total_page=data["total_page"],
+            id=data.get("id"),
+            media_type=data.get("media_type"),
+            page=data.get("page"),
+            total_page=data.get("total_page"),
             items=items
         )
 
@@ -372,18 +372,18 @@ class NullbrSDK:
         
         items = [
             Movie115Item(
-                title=item["title"],
-                size=item["size"],
-                share_link=item["share_link"]
+                title=item.get("title"),
+                size=item.get("size"),
+                share_link=item.get("share_link")
             )
-            for item in data["115"]
+            for item in data.get("115", [])
         ]
         
         return Collection115Response(
-            id=data["id"],
-            media_type=data["media_type"],
-            page=data["page"],
-            total_page=data["total_page"],
+            id=data.get("id"),
+            media_type=data.get("media_type"),
+            page=data.get("page"),
+            total_page=data.get("total_page"),
             items=items
         )
 
@@ -403,15 +403,15 @@ class NullbrSDK:
         data = self._request("GET", f"{self.base_url}/tv/{tmdbid}/season/{season_number}")
         
         return TVSeasonResponse(
-            tv_show_id=data["tv_show_id"],
-            season_number=data["season_number"],
-            name=data["name"],
-            overview=data["overview"],
-            air_date=data["air_date"],
-            poseter=data["poseter"],
-            episode_count=data["episode_count"],
-            vote_average=data["vote_average"],
-            has_magnet=data["magnet-flg"] == 1
+            tv_show_id=data.get("tv_show_id"),
+            season_number=data.get("season_number"),
+            name=data.get("name"),
+            overview=data.get("overview"),
+            air_date=data.get("air_date"),
+            poseter=data.get("poseter"),
+            episode_count=data.get("episode_count"),
+            vote_average=data.get("vote_average"),
+            has_magnet=data.get("magnet-flg") == 1
         )
 
     def get_tv_season_magnet(self, tmdbid: int, season_number: int) -> TVSeasonMagnetResponse:
@@ -432,20 +432,20 @@ class NullbrSDK:
         
         items = [
             MovieMagnetItem(
-                name=item["name"],
-                size=item["size"],
-                magnet=item["magnet"],
-                resolution=item["resolution"],
-                source=item["source"],
-                quality=item["quality"],
-                zh_sub=item["zh_sub"]
+                name=item.get("name"),
+                size=item.get("size"),
+                magnet=item.get("magnet"),
+                resolution=item.get("resolution"),
+                source=item.get("source"),
+                quality=item.get("quality"),
+                zh_sub=item.get("zh_sub")
             )
-            for item in data["magnet"]
+            for item in data.get("magnet", [])
         ]
         
         return TVSeasonMagnetResponse(
-            id=data["id"],
-            season_number=data["season_number"],
-            media_type=data["media_type"],
+            id=data.get("id"),
+            season_number=data.get("season_number"),
+            media_type=data.get("media_type"),
             magnet=items
         )
