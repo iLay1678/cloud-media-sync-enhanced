@@ -5,9 +5,9 @@ description = "一个基于资源搜索机器人"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "httpx[http2]>=0.28.1",
     "python-dotenv>=1.1.0",
     "python-telegram-bot>=22.0",
     "PyJWT>=2.8.0",
+    "nullbr-python>=0.1.1",
 ]
 
