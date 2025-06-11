@@ -8,6 +8,6 @@ dependencies = [
     "python-dotenv>=1.1.0",
     "python-telegram-bot>=22.0",
     "PyJWT>=2.8.0",
-    "nullbr-python>=0.1.1",
+    "nullbr>=1.0.0",
 ]
 

@@ -3,7 +3,7 @@ import logging
 from typing import List
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, filters, ContextTypes
-from nullbr_python import NullbrSDK
+from nullbr import NullbrSDK
 from telegram.helpers import escape_markdown
 import json
 
