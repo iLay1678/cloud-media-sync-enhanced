@@ -1,16 +1,62 @@
-[![Build and Push Docker Image](https://github.com/iLay1678/nullbr_cms_bot/actions/workflows/docker-build.yml/badge.svg)](https://github.com/iLay1678/nullbr_cms_bot/actions/workflows/docker-build.yml)
-# nullbr资源搜索机器人
-## 单体版不再更新，如有需要请使用集成版，集成版cms版本随主版本自动更新
+
+# CloudMediaSynC 增强版
+
 ## 简介
 
-nullbr资源搜索机器人是一个基于Telegram的机器人，用于搜索nullbr资源。
+## Telegram 机器人增强功能
 
-## 功能
+### 功能概述
 
-- 搜索nullbr资源
-- 通过CMS转存资源(只有配置了CMS相关环境变量和指定TG用户才显示转存按钮)
+为 `CloudMediaSynC`的Telegram 机器人提供了增强功能，集成了 Nullbr API 实现智能媒体搜索和转存。
+
+### 主要功能
+
+#### 1. 智能媒体搜索
+- **触发方式**: 以 `?` 或 `？` 开头发送消息
+- **示例**: `? 三体`、`？ 复仇者联盟`
+- **功能**: 自动搜索电影、电视剧等媒体资源
+- **返回**: 搜索结果列表，支持查看详情
+
+#### 2. 命令扩展
+- `/id` - 获取当前用户的 Telegram ID
+
+#### 3. 资源获取功能
+通过内联按钮支持多种资源获取方式：
+
+##### 3.1 115网盘资源
+- 获取 115 网盘分享链接
+- 显示资源标题、大小等详细信息
+- 支持一键转存功能（需权限）
+
+##### 3.2 磁力链接资源
+- 获取高质量磁力链接
+- 显示分辨率、来源、质量等信息
+- 支持中字筛选
+- 电视剧支持按季度获取
+
+##### 3.3 自动转存
+- 支持 115 分享链接自动转存
+- 支持阿里云盘分享链接
+- 支持磁力链接和 ed2k 链接
+- 白名单用户权限控制
+
+#### 4. 用户权限管理
+- 基于白名单的用户访问控制
+- 支持配置允许转存操作的用户ID
+- 自动读取配置文件中的授权用户列表
+
+### 环境变量配置
+
+```bash
+# Nullbr API 配置（必需）
+NULLBR_APP_ID=your_app_id_here
+NULLBR_API_KEY=your_api_key_here  
+NULLBR_BASE_URL=https://api.nullbr.com
+```
 ## 使用 Docker Compose
-1. 使用cms集成镜像：
+
+ 创建`docker-compose.yaml`文件：
+
 ```yaml
 services:
   cloud-media-sync:
@@ -43,32 +89,4 @@ services:
       - NULLBR_APP_ID: your_app_id_here
       - NULLBR_API_KEY: your_api_key_here
       - NULLBR_BASE_URL: https://api.nullbr.online
-      # nullbr机器人配置
-      - TG_BOT_TOKEN: 1608962238:5o45983
-      - TG_CHAT_ID: "123456789"
 ```
-2. 单独部署(不再更新)：
-
-```yaml
-services:
-  nullbr_cms_bot:
-    image: ghcr.io/ilay1678/nullbr_cms_bot:latest
-    container_name: nullbr_cms_bot
-    restart: always
-    environment:
-      # Nullbr配置
-      NULLBR_APP_ID: your_app_id_here
-      NULLBR_API_KEY: your_api_key_here
-      NULLBR_BASE_URL: https://api.nullbr.online
-      # Telegram配置
-      TG_BOT_TOKEN: 1608962238:5o45983
-      TG_CHAT_ID: "123456789"
-      # CMS配置
-      CMS_BASE_URL: https://localhost
-      CMS_USERNAME: your_username_here
-      CMS_PASSWORD: your_password_here
-```
-
-# 集成版更新日志
-## 2025-08-12 
-更改python-telegram-bot依赖为pyTelegramBotAPI，与CMS依赖保持一致
