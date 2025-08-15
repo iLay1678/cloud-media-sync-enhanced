@@ -1,7 +1,7 @@
 
 # CloudMediaSynC 增强版
 
-在CloudMediaSynC基础上增强了tg机器人和企业微信的一些功能，并增加了一些开放接口，便于其他程序调用
+在CloudMediaSynC基础上增强了页面和消息渠道的一些功能，并增加了一些开放接口，便于其他程序调用
 
 ## 部署
 
@@ -40,7 +40,14 @@ services:
       - NULLBR_API_KEY: your_api_key_here
       - NULLBR_BASE_URL: https://api.nullbr.online
 ```
-
+## 页面增强
+### 增加Nullbr资源搜索功能
+### 列表
+![](https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/img/nullbr-list.jpeg)
+### 搜索
+![](https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/img/nullbr-search.jpeg)
+### 详情
+![](https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/img/nullbr-detail.jpeg)
 ## 消息渠道增强
 
 ### 功能概述
