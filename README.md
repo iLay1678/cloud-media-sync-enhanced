@@ -41,13 +41,8 @@ services:
       - NULLBR_BASE_URL: https://api.nullbr.online
 ```
 ## 页面增强
-### 增加Nullbr资源搜索功能
-### 列表
-![](https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/img/nullbr-list.jpeg)
-### 搜索
-![](https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/img/nullbr-search.jpeg)
-### 详情
-![](https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/img/nullbr-detail.jpeg)
+### 订阅功能增加从nullbr获取资源
+![](https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/img/nullbr.png)
 ## 消息渠道增强
 
 ### 功能概述
