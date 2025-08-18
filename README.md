@@ -36,9 +36,9 @@ services:
       - EMBY_API_KEY=xxx
       - DONATE_CODE=CMS_XXX_XXX
       # Nullbr配置
-      - NULLBR_APP_ID: your_app_id_here
-      - NULLBR_API_KEY: your_api_key_here
-      - NULLBR_BASE_URL: https://api.nullbr.online
+      - NULLBR_APP_ID=your_app_id_here
+      - NULLBR_API_KEY=your_api_key_here
+      - NULLBR_BASE_URL=https://api.nullbr.online
 ```
 ## 页面增强
 ### 订阅功能增加从nullbr获取资源
