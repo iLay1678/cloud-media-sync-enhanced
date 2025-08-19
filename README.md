@@ -40,6 +40,106 @@ services:
       - NULLBR_API_KEY=your_api_key_here
       - NULLBR_BASE_URL=https://api.nullbr.online
 ```
+
+## 基于原版镜像部署
+
+如果你想使用原版的 `imaliang/cloud-media-sync:latest` 镜像，并通过挂载增强功能文件的方式来获得本项目的增强功能，可以按照以下步骤操作：
+
+### 1. 下载增强功能文件
+
+根据你的系统架构下载对应的文件：
+
+**对于 x86_64 架构系统：**
+```bash
+# 下载 SO 文件
+wget https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/dist/usercustomize.cpython-312-x86_64-linux-gnu.so
+
+# 下载 JS 文件
+wget https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/dist/api-interceptor.js
+```
+
+**对于 ARM64/aarch64 架构系统：**
+```bash
+# 下载 SO 文件
+wget https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/dist/usercustomize.cpython-312-aarch64-linux-gnu.so
+
+# 下载 JS 文件
+wget https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/dist/api-interceptor.js
+```
+
+### 2. 创建目录结构
+
+```bash
+mkdir -p ./cms-api
+mkdir -p ./cms-web
+```
+
+### 3. 移动文件到对应目录
+
+**对于 x86_64 架构：**
+```bash
+mv usercustomize.cpython-312-x86_64-linux-gnu.so ./cms-api/
+mv api-interceptor.js ./cms-web/
+```
+
+**对于 ARM64/aarch64 架构：**
+```bash
+mv usercustomize.cpython-312-aarch64-linux-gnu.so ./cms-api/
+mv api-interceptor.js ./cms-web/
+```
+
+### 4. 创建 docker-compose.yaml 文件
+
+```yaml
+services:
+  cloud-media-sync:
+    privileged: true
+    container_name: cloud-media-sync
+    image: imaliang/cloud-media-sync:latest
+    restart: always
+    network_mode: bridge
+    volumes:
+      - "./config:/config"
+      - "./logs:/logs"
+      - "./cache:/var/cache/nginx/emby"
+      - "/data/media:/media"
+      # 挂载增强功能文件
+      - "./cms-api:/cms/cms-api"
+      - "./cms-web:/cms/web"
+    ports:
+      - "9527:9527"
+      - "9096:9096"
+    environment:
+      - PUID=0
+      - PGID=0
+      - UMASK=022
+      - TZ=Asia/Shanghai
+      - RUN_ENV=online
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=admin
+      - CMS_API_TOKEN=cloud_media_sync
+      - EMBY_HOST_PORT=http://172.17.0.1:8096
+      - EMBY_API_KEY=xxx
+      - DONATE_CODE=CMS_XXX_XXX
+      # Nullbr配置（用于增强功能）
+      - NULLBR_APP_ID=your_app_id_here
+      - NULLBR_API_KEY=your_api_key_here
+      - NULLBR_BASE_URL=https://api.nullbr.online
+```
+
+### 5. 启动服务
+
+```bash
+docker-compose up -d
+```
+
+### 注意事项
+
+- 请确保下载的 SO 文件与你的系统架构匹配
+- 增强功能需要配置 Nullbr 相关环境变量才能正常使用
+- 如果不需要 Nullbr 功能，可以移除相关环境变量配置
+- 建议定期更新增强功能文件以获得最新特性
+
 ## 页面增强
 ### 订阅功能增加从nullbr获取资源
 ![](https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/img/nullbr.png)
