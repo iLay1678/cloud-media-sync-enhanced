@@ -1,55 +1,16 @@
 
-# CloudMediaSynC 增强版
+# CloudMediaSync 增强版
 
-在CloudMediaSynC基础上增强了页面和消息渠道的一些功能，并增加了一些开放接口，便于其他程序调用
+在CloudMediaSync基础上增强了页面和消息渠道的一些功能，并增加了一些开放接口，便于其他程序调用
 
 ## 部署
 
-### 使用增强版镜像（推荐）
-
-创建`docker-compose.yaml`文件：
-
-```yaml
-services:
-  cloud-media-sync:
-    privileged: true
-    container_name: cloud-media-sync
-    image: ghcr.io/ilay1678/cloud-media-sync:latest
-    restart: always
-    network_mode: bridge
-    volumes:
-      - "./config:/config"
-      - "./logs:/logs"
-      - "./cache:/var/cache/nginx/emby"
-      - "/data/media:/media"
-    ports:
-      - "9527:9527"
-      - "9096:9096"
-    environment:
-      - PUID=0
-      - PGID=0
-      - UMASK=022
-      - TZ=Asia/Shanghai
-      - RUN_ENV=online
-      - ADMIN_USERNAME=admin
-      - ADMIN_PASSWORD=admin
-      - CMS_API_TOKEN=cloud_media_sync
-      - EMBY_HOST_PORT=http://172.17.0.1:8096
-      - EMBY_API_KEY=xxx
-      - DONATE_CODE=CMS_XXX_XXX
-      # Nullbr配置
-      - NULLBR_APP_ID=your_app_id_here
-      - NULLBR_API_KEY=your_api_key_here
-      - NULLBR_BASE_URL=https://api.nullbr.online
-```
-
 ### 基于原版安装教程
 
-如果您希望使用原版CloudMediaSync镜像并手动添加增强功能，请按照以下步骤操作：
 
 #### 1. 下载增强文件
 
-根据您的系统架构下载相应的文件：
+进入CloudMediaSync部署目录,根据您的系统架构下载相应的文件：
 
 **对于x86_64架构系统：**
 ```bash
@@ -69,9 +30,9 @@ wget https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/dist/userc
 wget https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/dist/api-interceptor.js
 ```
 
-#### 2. 创建docker-compose.yaml文件
+#### 2. 修改docker-compose.yaml文件
 
-使用原版镜像并挂载增强文件：
+挂载增强文件并增加环境变量：
 
 ```yaml
 services:
