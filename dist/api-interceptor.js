@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    const version = 20250820
+    const version = 2025082001
 
     // 保存原始的XMLHttpRequest
     const OriginalXHR = window.XMLHttpRequest;
@@ -2452,11 +2452,11 @@
                 // 检查格式是否符合预期,trim后是纯数字
                 const trimmed = latest_version.trim();
                 if (/^\d+$/.test(trimmed)) {
-                    const currentVersion = version || '20250820';
+                    const currentVersion = version;
                     //转为数字进行比较
                     if (parseInt(currentVersion, 10) < parseInt(trimmed, 10)) {
                         // 显示新版本信息
-                        showMessage(`发现新版本：${trimmed}，当前版本：${currentVersion}`, 'info');
+                        showMessage(`增强补丁发现新版本：${trimmed}，当前版本：${currentVersion}`, 'info');
                     } else {
                         console.log('当前版本已是最新:', currentVersion);
                     }
