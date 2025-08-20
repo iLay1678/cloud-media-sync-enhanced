@@ -48,8 +48,8 @@ services:
       - "./cache:/var/cache/nginx/emby"
       - "/data/media:/media"
       # 挂载增强文件
-      - "./usercustomize.so:/cms/cms-api/usercustomize.so:ro"
-      - "./api-interceptor.js:/cms/web/api-interceptor.js:ro"
+      - "./usercustomize.so:/cms/cms-api/usercustomize.so"
+      - "./api-interceptor.js:/cms/web/api-interceptor.js"
     ports:
       - "9527:9527"
       - "9096:9096"
@@ -79,7 +79,7 @@ docker-compose up -d
 
 #### 注意事项
 
-- 确保下载的文件权限正确，建议设置为只读（:ro）
+- 确保下载的文件权限正确
 - 根据您的系统架构选择正确的SO文件
 - 增强功能需要配置Nullbr相关环境变量才能正常工作
 - 如果您不确定系统架构，可以使用 `uname -m` 命令查看
