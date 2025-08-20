@@ -1,5 +1,6 @@
 (function () {
     'use strict';
+    const version = '20250820'
 
     // 保存原始的XMLHttpRequest
     const OriginalXHR = window.XMLHttpRequest;
@@ -2434,7 +2435,28 @@
         // 目前先保持空实现，因为主要功能已经在searchResources中实现
         console.log('获取资源详情:', tmdbId, type);
     }
+    function check_update(){
+        remote_version_url = 'https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/version'
+        try {
+            const response = fetch(remote_version_url, {cache: 'no-cache'});
+            if (response.ok) {
+                const latest_version = response.text();
+                // 检查格式是否符合预期,trim后是纯数字
+                if (/^\d+$/.test(latest_version.trim())) {
+                    if (version !== latest_version) {
+                        showMessage(`发现新版本：${latest_version}，请前往插件市场更新`, 'info');
+                    }else{
+                        console.log('当前版本已是最新:', version);
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('检查更新失败:', error);
+        }
+
+    }
 
     console.log('✅ API拦截器已安装，将拦截并阻止 api/submedia/add 请求，在弹窗中手动订阅');
+    check_update();
 
 })();
