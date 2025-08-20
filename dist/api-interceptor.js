@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    const version = '20250820'
+    const version = 20250820
 
     // 保存原始的XMLHttpRequest
     const OriginalXHR = window.XMLHttpRequest;
@@ -108,7 +108,7 @@
         overlay.dataset.tmdbId = mediaData.tmdb_id;
         overlay.dataset.mediaType = mediaData.type || 'movie';
         overlay.dataset.mediaTitle = mediaData.title || '未知标题';
-        
+
         overlay.style.cssText = `
             position: fixed;
             top: 0;
@@ -853,7 +853,7 @@
 
         // 存储已加载的资源类型，避免重复加载
         const loadedResources = new Set();
-        
+
         // 将已加载资源存储到modal上，供其他函数使用
         modal._loadedResources = loadedResources;
 
@@ -2115,13 +2115,13 @@
             } else if (type === 'video') {
                 // 在线视频资源 - 添加source标签
                 const tags = [];
-                
+
                 // 类型标签
                 const typeTag = item.type === 'm3u8' ?
                     `<span style="background: var(--color-purple-light-1, #f5f0ff); color: var(--color-purple-6, #7c5eff); padding: 2px 6px; border-radius: 3px; font-size: 10px;">M3U8</span>` :
                     `<span style="background: var(--color-cyan-light-1, #e8fcfc); color: var(--color-cyan-6, #00bcd4); padding: 2px 6px; border-radius: 3px; font-size: 10px;">HTTP</span>`;
                 tags.push(typeTag);
-                
+
                 // 来源标签
                 if (item.source) {
                     tags.push(`<span style="background: var(--color-primary-light-1, #e8f0ff); color: var(--color-primary-6, #3370ff); padding: 2px 6px; border-radius: 3px; font-size: 10px;">${item.source}</span>`);
@@ -2435,25 +2435,42 @@
         // 目前先保持空实现，因为主要功能已经在searchResources中实现
         console.log('获取资源详情:', tmdbId, type);
     }
-    function check_update(){
-        remote_version_url = 'https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/version'
+    function check_update() {
         try {
-            const response = fetch(remote_version_url, {cache: 'no-cache'});
-            if (response.ok) {
-                const latest_version = response.text();
-                // 检查格式是否符合预期,trim后是纯数字
-                if (/^\d+$/.test(latest_version.trim())) {
-                    if (version !== latest_version) {
-                        showMessage(`发现新版本：${latest_version}，请前往插件市场更新`, 'info');
-                    }else{
-                        console.log('当前版本已是最新:', version);
-                    }
+            fetch("/api/base/latest_version", {
+                method: "GET",
+                mode: "no-cors",
+                cache: "no-cache"
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
                 }
-            }
+                throw new Error('Network response was not ok');
+            })
+            .then(latest_version => {
+                // 检查格式是否符合预期,trim后是纯数字
+                const trimmed = latest_version.trim();
+                if (/^\d+$/.test(trimmed)) {
+                    const currentVersion = version || '20250820';
+                    //转为数字进行比较
+                    if (parseInt(currentVersion, 10) < parseInt(trimmed, 10)) {
+                        // 显示新版本信息
+                        showMessage(`发现新版本：${trimmed}，当前版本：${currentVersion}`, 'info');
+                    } else {
+                        console.log('当前版本已是最新:', currentVersion);
+                    }
+                } else {
+                    console.log('版本格式不正确:', trimmed);
+                }
+            })
+            .catch(error => {
+                console.error('检查更新失败:', error);
+                // 静默失败，不显示错误信息给用户
+            });
         } catch (error) {
             console.error('检查更新失败:', error);
         }
-
     }
 
     console.log('✅ API拦截器已安装，将拦截并阻止 api/submedia/add 请求，在弹窗中手动订阅');
