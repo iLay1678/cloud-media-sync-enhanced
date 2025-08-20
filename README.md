@@ -15,19 +15,19 @@
 **对于x86_64架构系统：**
 ```bash
 # 下载SO文件并重命名
-wget https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/dist/usercustomize.cpython-312-x86_64-linux-gnu.so -O usercustomize.so
+wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/usercustomize.cpython-312-x86_64-linux-gnu.so -O usercustomize.so
 
 # 下载JS文件
-wget https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/dist/api-interceptor.js
+wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/api-interceptor.js
 ```
 
 **对于ARM64架构系统：**
 ```bash
 # 下载SO文件并重命名
-wget https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/dist/usercustomize.cpython-312-aarch64-linux-gnu.so -O usercustomize.so
+wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/usercustomize.cpython-312-aarch64-linux-gnu.so -O usercustomize.so
 
 # 下载JS文件
-wget https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/dist/api-interceptor.js
+wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/api-interceptor.js
 ```
 
 #### 2. 修改docker-compose.yaml文件
