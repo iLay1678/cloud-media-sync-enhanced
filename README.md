@@ -18,7 +18,7 @@
 wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/usercustomize.cpython-312-x86_64-linux-gnu.so -O usercustomize.so
 
 # 下载JS文件
-wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/api-interceptor.js
+wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/api-interceptor.js -O api-interceptor.js
 ```
 
 **对于ARM64架构系统：**
@@ -27,7 +27,7 @@ wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/a
 wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/usercustomize.cpython-312-aarch64-linux-gnu.so -O usercustomize.so
 
 # 下载JS文件
-wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/api-interceptor.js
+wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/api-interceptor.js -O api-interceptor.js
 ```
 
 #### 2. 修改docker-compose.yaml文件
