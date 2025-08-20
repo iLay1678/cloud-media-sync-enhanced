@@ -39,7 +39,7 @@ services:
   cloud-media-sync:
     privileged: true
     container_name: cloud-media-sync
-    image: cloudnas/cloud-media-sync:latest  # 使用原版镜像
+    image: imaliang/cloud-media-sync:latest  # 使用原版镜像
     restart: always
     network_mode: bridge
     volumes:
