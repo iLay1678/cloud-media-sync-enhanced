@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    const version = 2025082001
+    const version = 2025082106
 
     // 保存原始的XMLHttpRequest
     const OriginalXHR = window.XMLHttpRequest;
@@ -2456,7 +2456,7 @@
                     //转为数字进行比较
                     if (parseInt(currentVersion, 10) < parseInt(trimmed, 10)) {
                         // 显示新版本信息
-                        showMessage(`增强补丁发现新版本：${trimmed}，当前版本：${currentVersion}`, 'info');
+                        showMessage(`增强补丁发现新版本：${trimmed}，当前版本：${currentVersion},请重启容器进行更新`, 'info');
                     } else {
                         console.log('当前版本已是最新:', currentVersion);
                     }
