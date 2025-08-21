@@ -16,18 +16,12 @@
 ```bash
 # 下载SO文件并重命名
 wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/usercustomize.cpython-312-x86_64-linux-gnu.so -O usercustomize.so
-
-# 下载JS文件
-wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/api-interceptor.js -O api-interceptor.js
 ```
 
 **对于ARM64架构系统：**
 ```bash
 # 下载SO文件并重命名
 wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/usercustomize.cpython-312-aarch64-linux-gnu.so -O usercustomize.so
-
-# 下载JS文件
-wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/api-interceptor.js -O api-interceptor.js
 ```
 
 #### 2. 修改docker-compose.yaml文件
@@ -49,7 +43,6 @@ services:
       - "/data/media:/media"
       # 挂载增强文件
       - "./usercustomize.so:/cms/cms-api/usercustomize.so"
-      - "./api-interceptor.js:/cms/web/api-interceptor.js"
     ports:
       - "9527:9527"
       - "9096:9096"
