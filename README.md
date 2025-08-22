@@ -10,18 +10,31 @@
 
 #### 1. 下载增强文件
 
-进入CloudMediaSync部署目录,根据您的系统架构下载相应的文件：
+进入CloudMediaSync部署目录，全选复制以下命令并执行，自动识别系统架构并下载对应文件（macOS 的 arm64 将自动映射为 aarch64）：
 
-**对于x86_64架构系统：**
 ```bash
-# 下载SO文件并重命名
-wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/usercustomize.cpython-312-x86_64-linux-gnu.so -O usercustomize.so
-```
+arch=$(uname -m)
+case "$arch" in
+  x86_64|amd64)
+    pkg_arch="x86_64"
+    ;;
+  arm64|aarch64)
+    pkg_arch="aarch64"
+    ;;
+  *)
+    echo "不支持的架构: $arch" >&2
+    exit 1
+    ;;
+esac
 
-**对于ARM64架构系统：**
-```bash
-# 下载SO文件并重命名
-wget https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/usercustomize.cpython-312-aarch64-linux-gnu.so -O usercustomize.so
+URL="https://cnb.cool/ilay1678/cloud-media-sync-enhanced/-/git/raw/master/dist/usercustomize.cpython-312-${pkg_arch}-linux-gnu.so"
+echo "Downloading $URL ..."
+if command -v wget >/dev/null 2>&1; then
+  wget -O usercustomize.so "$URL"
+else
+  curl -L "$URL" -o usercustomize.so
+fi
+echo "Saved to ./usercustomize.so"
 ```
 
 #### 2. 修改docker-compose.yaml文件
