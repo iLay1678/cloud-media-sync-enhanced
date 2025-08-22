@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    const version = 2025082108
+    const version = 2025082110
 
     // 保存原始的XMLHttpRequest
     const OriginalXHR = window.XMLHttpRequest;
