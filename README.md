@@ -1,5 +1,8 @@
 
 # CloudMediaSync 增强版
+![PyPI - Version](https://img.shields.io/pypi/v/cms_enhance)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/cms_enhance)
+![PyPI - Wheel](https://img.shields.io/pypi/wheel/cms_enhance)
 
 在CloudMediaSync基础上增强了页面和消息渠道的一些功能，并增加了一些开放接口，便于其他程序调用
 
