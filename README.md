@@ -90,7 +90,7 @@ docker-compose up -d
 
 - 增强功能需要配置Nullbr相关环境变量才能正常工作
 ## 页面增强
-### 订阅功能增加从nullbr获取资源
+### 热门推荐的订阅按钮增加nullbr资源弹窗
 ![](https://github.com/iLay1678/cloud-media-sync-enhanced/raw/master/img/nullbr.png)
 ## 消息渠道增强
 
