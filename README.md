@@ -75,9 +75,8 @@ services:
       - EMBY_API_KEY=xxx
       - DONATE_CODE=CMS_XXX_XXX
       # Nullbr配置（增强功能所需）
-      - NULLBR_APP_ID=your_app_id_here
       - NULLBR_API_KEY=your_api_key_here
-      - NULLBR_BASE_URL=https://api.nullbr.online
+      - NULLBR_BASE_URL=https://nullbr.com
       # Panso配置（可选的额外搜索源）
       - PANSO_URL=http://your_panso_server_url  # 不配置则不启用Panso
       - PANSO_USERNAME=your_username  # 可选，不配置表示无需认证
